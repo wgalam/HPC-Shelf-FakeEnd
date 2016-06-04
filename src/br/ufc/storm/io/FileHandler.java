@@ -18,10 +18,12 @@ public class FileHandler {
 		try {
 			Path pathToFile = Paths.get(path);
 			Files.createDirectories(pathToFile.getParent());
-			Files.createFile(pathToFile);
-			Files.write(pathToFile, data, StandardOpenOption.WRITE);
+			Files.deleteIfExists(pathToFile);
+			Files.createFile(pathToFile);			
+			Files.write(pathToFile, data, StandardOpenOption.CREATE);
 			return true;
 		} catch (IOException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}

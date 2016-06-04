@@ -3,44 +3,49 @@ import br.ufc.storm.io.FileHandler;
 import br.ufc.storm.io.RuntimeExecHandler;
 
 public class FakeEndServices {
-
-	public boolean addFile(String fullPath, byte [] file){
-		return FileHandler.addFile(fullPath, file);
+	static String base = "/tmp/";
+	
+	public static boolean addFile(String fullPath, byte [] file){
+		return FileHandler.addFile(base+fullPath, file);
 	}
 	
-	public byte[] getFile(String pathname){
+	public static byte[] getFile(String pathname){
 		try {
-			return FileHandler.readFile(pathname);
+			return FileHandler.readFile(base+pathname);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public String removeFile(String path){
-		return RuntimeExecHandler.run("rm "+path);
+	public static String removeFile(String path){
+		return RuntimeExecHandler.run("rm "+base+path);
 		
 	}
 	
-	public String renameFile(String oldPath, String newPath){
-		return RuntimeExecHandler.run("mv "+oldPath+" "+newPath);
+	public static String renameFile(String oldPath, String newPath){
+		return RuntimeExecHandler.run("mv "+base+oldPath+" "+base+newPath);
 	}
 
-	public String runFile(String path){
-		return RuntimeExecHandler.run(path);
+	public static String setRunnable(String path){
+		RuntimeExecHandler.run("chmod +x "+ base+path);
+		return RuntimeExecHandler.run(base+path);
 	}
 	
-	public String runCommand(String script){
-		return RuntimeExecHandler.run(script);
+	public static String runFile(String path){
+		return RuntimeExecHandler.run(base+path);
 	}
-
-	public boolean destroy(){
+	
+	public static boolean destroy(){
 		return true;
 	}
 
-	public String getStatus(){
+	public static String getStatus(){
 		return "This is ok";
 	}
 	
+	public static String blablabla(){
+		return "This is ok";
+	}
 	
 }

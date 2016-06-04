@@ -22,7 +22,6 @@ public class RuntimeExecHandler {
 	public static String run(String command){
 		String ok = "";
 		String error = "";
-
 		try {
 			Process pro = Runtime.getRuntime().exec(command);
 			ok = printLines(command + " stdout:", pro.getInputStream());
